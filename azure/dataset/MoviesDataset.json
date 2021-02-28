@@ -1,0 +1,28 @@
+{
+	"name": "MoviesDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "All"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "movies.csv",
+				"folderPath": "InputTestDatasets",
+				"container": "myblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

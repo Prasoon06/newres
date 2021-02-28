@@ -1,0 +1,16 @@
+{
+	"name": "prasoonadffactory",
+	"properties": {
+		"globalParameters": {
+			"ProductTable": {
+				"type": "string",
+				"value": "product"
+			},
+			"SqlDBName": {
+				"type": "string",
+				"value": "mydb"
+			}
+		}
+	},
+	"location": "eastus"
+}

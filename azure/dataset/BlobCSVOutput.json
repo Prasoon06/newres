@@ -1,0 +1,36 @@
+{
+	"name": "BlobCSVOutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "All"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "output",
+				"container": "myblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "pen       ",
+				"type": "String"
+			},
+			{
+				"name": "1",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

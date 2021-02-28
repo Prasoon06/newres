@@ -1,0 +1,27 @@
+{
+	"name": "DestinationDataset_j69",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorageService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "copydatasets"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "employeetable.txt",
+				"folderPath": "output",
+				"container": "myblob"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

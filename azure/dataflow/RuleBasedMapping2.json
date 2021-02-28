@@ -1,0 +1,35 @@
+{
+	"name": "RuleBasedMapping2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DynamicDataset",
+						"type": "DatasetReference"
+					},
+					"name": "MoviesDataset"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "MoviesTableAzureSqlDatabase",
+						"type": "DatasetReference"
+					},
+					"name": "FinalMoviesDataset"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddYear"
+				},
+				{
+					"name": "RuleBasedMapping"
+				}
+			],
+			"script": "parameters{\n\tfileName as string ('movies.csv')\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tinferDriftedColumnTypes: true,\n\twildcardPaths:[($fileName)]) ~> MoviesDataset\nRuleBasedMapping derive(each(match(name=='title'), 'year' = regexExtract($$,'([0-9]+)'), 'title' = regexReplace($$,'[(([0-9]+))]',''))) ~> AddYear\nMoviesDataset select(mapColumn(\n\t\teach(match(locate('id',lower(name))!=0),\n\t\t\t'movieid' = $$),\n\t\teach(match(locate('title',lower(name))!=0),\n\t\t\t'title' = $$),\n\t\teach(match(locate('genre',lower(name))!=0),\n\t\t\t'genres' = $$),\n\t\teach(match(locate('prasoon',name)==0))\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RuleBasedMapping\nAddYear sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> FinalMoviesDataset"
+		}
+	}
+}
